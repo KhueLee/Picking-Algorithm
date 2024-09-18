@@ -24,6 +24,7 @@ class MainWindow(QMainWindow):
         # self.ui.lb_runtime.setText(str(datetime.timedelta(seconds=SystemManagement().state["runtime"])))
         pass
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
