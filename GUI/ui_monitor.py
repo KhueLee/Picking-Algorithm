@@ -2,8 +2,8 @@ from PySide2.QtWidgets import QWidget, QPushButton, QLabel
 from PySide2.QtGui import QPainter, QColor, QPainterPath, QTransform, QPen, QFont
 from PySide2.QtCore import QTimer, Qt, QObject
 
-from functools import partial
 from Management.map_management import MapManagement
+from Management.robot_management import RobotManagement
 
 
 class LayerMap(QWidget):
@@ -16,6 +16,7 @@ class LayerMap(QWidget):
     start_y = 30  # vi tri y bat dau hien thi map
     node_diameter = 10
     res = 0
+    list_robot = {}
 
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
@@ -44,6 +45,8 @@ class LayerMap(QWidget):
 
         for node in MapManagement().map_coordinate.values():
             self.create_node(node)
+        for robot in RobotManagement().list_robot.values():
+            self.list_robot[robot.robot_id] = WidRobot(self, robot.robot_id, robot.coordinate[0], robot.coordinate[1])
 
     def create_node(self, coordinate):
         x = self.start_x + (coordinate[0]+1500)//self.res - self.node_diameter//2
@@ -95,6 +98,10 @@ class WidRobot(QWidget):
         painter.drawEllipse(center_x - radius, center_y - radius, 2 * radius, 2 * radius)
 
     def update_state(self):
+        robot_coordinate = RobotManagement().list_robot[self.robot_id].coordinate
+        self.coordinate_x = robot_coordinate[0]
+        self.coordinate_y = robot_coordinate[1]
+
         x = self.map_start_x + (self.coordinate_x + 1500) // self.res - self.robot_diameter // 2
         y = self.map_size_y - ((self.map_start_y + (self.coordinate_y + 1500) // self.res) + self.robot_diameter // 2)
         self.move(x, y)
