@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'gui_simoPmdWc.ui'
+## Form generated from reading UI file 'gui_simHKVDdk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.14.1
 ##
@@ -126,6 +126,18 @@ class Ui_MainWindow(object):
         self.lb_pph_5.setFont(font)
         self.lb_pph_5.setStyleSheet(u"color: rgb(0, 255, 0);")
         self.lb_pph_5.setAlignment(Qt.AlignCenter)
+        self.lb_num_thread = QLabel(self.widget)
+        self.lb_num_thread.setObjectName(u"lb_num_thread")
+        self.lb_num_thread.setGeometry(QRect(1710, 50, 201, 31))
+        self.lb_num_thread.setFont(font)
+        self.lb_num_thread.setStyleSheet(u"color: rgb(0, 255, 0);")
+        self.lb_num_thread.setAlignment(Qt.AlignCenter)
+        self.label_13 = QLabel(self.widget)
+        self.label_13.setObjectName(u"label_13")
+        self.label_13.setGeometry(QRect(1710, 10, 201, 31))
+        self.label_13.setFont(font)
+        self.label_13.setStyleSheet(u"color: rgb(255, 255, 255);")
+        self.label_13.setAlignment(Qt.AlignCenter)
         self.wid_monitor = QWidget(self.centralwidget)
         self.wid_monitor.setObjectName(u"wid_monitor")
         self.wid_monitor.setGeometry(QRect(0, 105, 1920, 975))
@@ -158,5 +170,7 @@ class Ui_MainWindow(object):
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"L\u01b0\u1ee3t nh\u1eadp / h", None))
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"L\u01b0\u1ee3t xu\u1ea5t / h", None))
         self.lb_pph_5.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.lb_num_thread.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.label_13.setText(QCoreApplication.translate("MainWindow", u"Num of Thread", None))
     # retranslateUi
 

@@ -26,7 +26,7 @@ class SystemManagement:
         self.state["map_name"] = map_name
 
         MapManagement().load_map_from_zip(f"ConfigSystem/Map/{map_name}.zip")
-        RobotManagement().init_robot(data_config["number_of_robot"])
+        RobotManagement().init_robot(data_config["number_of_robot"], data_config["robot_param"])
 
         self.state["start_time"] = datetime.now()
         self.state["runtime"] = 0
@@ -35,4 +35,5 @@ class SystemManagement:
     def update_system_state_1s(self):
         while self.is_start:
             self.state["runtime"] = round((datetime.now() - self.state["start_time"]).total_seconds())
+            self.state["no_thread"] = threading.active_count()
             time.sleep(1)

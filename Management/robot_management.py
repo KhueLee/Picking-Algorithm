@@ -15,7 +15,9 @@ class RobotManagement:
     def __init__(self):
         pass
 
-    def init_robot(self, number_of_robot):
+    def init_robot(self, number_of_robot, robot_param):
+        Robot.robot_moving_config = robot_param
+
         for i in range(number_of_robot):
             robot_id = f"Robot_{i}"
             node_id = MapManagement().map_data["nodes"][i]["id"]

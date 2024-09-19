@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
 
     def update_state(self):
         self.ui.lb_runtime.setText(str(datetime.timedelta(seconds=SystemManagement().state["runtime"])))
-        pass
+        self.ui.lb_num_thread.setText(str(SystemManagement().state["no_thread"]))
 
 
 if __name__ == "__main__":

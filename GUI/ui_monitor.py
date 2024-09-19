@@ -46,7 +46,11 @@ class LayerMap(QWidget):
         for node in MapManagement().map_coordinate.values():
             self.create_node(node)
         for robot in RobotManagement().list_robot.values():
-            self.list_robot[robot.robot_id] = WidRobot(self, robot.robot_id, robot.coordinate[0], robot.coordinate[1])
+            self.list_robot[robot.robot_id] = WidRobot(self, robot.robot_id, robot.coordinate_current[0], robot.coordinate_current[1])
+
+        self.timer_update_robot = QTimer(self)
+        self.timer_update_robot.timeout.connect(self.update_state)
+        self.timer_update_robot.start(30)
 
     def create_node(self, coordinate):
         x = self.start_x + (coordinate[0]+1500)//self.res - self.node_diameter//2
@@ -62,6 +66,10 @@ class LayerMap(QWidget):
                         background-color: #ff0000;
                     }}
                 """)
+
+    def update_state(self):
+        for robot in self.list_robot.values():
+            robot.update_state()
 
 
 class WidRobot(QWidget):
@@ -79,9 +87,9 @@ class WidRobot(QWidget):
         self.coordinate_x = coordinate_x
         self.coordinate_y = coordinate_y
 
-        self.timer_update_robot = QTimer(self)
-        self.timer_update_robot.timeout.connect(self.update_state)
-        self.timer_update_robot.start(30)
+        # self.timer_update_robot = QTimer(self)
+        # self.timer_update_robot.timeout.connect(self.update_state)
+        # self.timer_update_robot.start(30)
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -98,7 +106,8 @@ class WidRobot(QWidget):
         painter.drawEllipse(center_x - radius, center_y - radius, 2 * radius, 2 * radius)
 
     def update_state(self):
-        robot_coordinate = RobotManagement().list_robot[self.robot_id].coordinate
+        robot_coordinate = RobotManagement().list_robot[self.robot_id].coordinate_current
+
         self.coordinate_x = robot_coordinate[0]
         self.coordinate_y = robot_coordinate[1]
 
