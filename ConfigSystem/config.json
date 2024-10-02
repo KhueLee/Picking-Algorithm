@@ -1,6 +1,6 @@
 {
   "map_name": "Winmart_1909",
-  "number_of_robot": 5,
+  "number_of_robot": 10,
   "number_of_charging_port": 5,
   "robot_param": {
     "freq": 30,

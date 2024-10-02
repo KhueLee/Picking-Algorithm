@@ -25,8 +25,8 @@ class Robot:
         self.coordinate_start = [coordinate[0], coordinate[1]]
         self.coordinate_target = [coordinate[0], coordinate[1]]
         self.time_start_move = datetime.now()
-        self.robot_task = RobotTask(self)
         self.robot_sub_task = RobotSubTask(self)
+        self.robot_task = RobotTask(self)
 
     def move_sim(self, node_target, is_load):
         self.is_moving = True
@@ -156,7 +156,7 @@ class RobotTask:
         self.robot.robot_sub_task.unload()
 
     def move_empty(self, to_node):
-        time.sleep(1)
+        # time.sleep(1)
         # while True:
         node_target = random.choice(list(MapManagement().map_coordinate.keys()))
         self.robot.robot_sub_task.move_no_load(node_target)
@@ -170,7 +170,9 @@ class RobotSubTask:
         self.robot = robot
 
     def move_no_load(self, to_node_id):
+        print(self.robot.robot_id, "move from", self.robot.current_node_id, to_node_id)
         path_plan = MapManagement().astar(self.robot.current_node_id, to_node_id, False)
+        print(self.robot.robot_id, path_plan)
         safe_point = 0
         while self.robot.current_node_id != path_plan[-1] and path_plan is not None:
             coordinate_next = MapManagement().map_coordinate[path_plan[safe_point+1]]

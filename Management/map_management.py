@@ -2,6 +2,7 @@ import threading
 import zipfile
 import json
 import heapq
+from datetime import datetime
 
 
 # Class for map management
@@ -180,4 +181,10 @@ class MapManagement:
         for path in path_plan_id:
             coordinates.append(MapManagement.map_coordinate[path])
         return coordinates
+
+
+MapManagement().load_map_from_zip("Winmart_1909.zip")
+print(datetime.now())
+print(MapManagement().astar("10000008", "10001484", False))
+print(datetime.now())
 

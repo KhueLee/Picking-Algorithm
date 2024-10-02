@@ -24,4 +24,4 @@ if __name__ == "__main__":
     config_path = "ConfigSystem/config.json"
     data_config = read_config(config_path)
     SystemManagement().start_system(data_config)
-    threading.Thread(target=start_gui).start()
+    # threading.Thread(target=start_gui).start()
