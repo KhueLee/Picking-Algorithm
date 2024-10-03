@@ -91,6 +91,7 @@ class MapManagement:
                     abs(self.map_coordinate[node_a][1] - self.map_coordinate[node_b][1]))
 
         open_list = []
+        close_list = []
         heapq.heappush(open_list, (0, node_start))
         came_from = {}
         g_score = {node_start: 0}
@@ -113,8 +114,20 @@ class MapManagement:
                     path_coordinate.append(node_id)
                 path_coordinate.reverse()
                 return path
+            close_list.append(current)
 
+            map_edge = {}
             for edge in self.map_edge[current]:
+                map_edge[edge] = heuristic(edge, node_end)
+
+            map_sorted = dict(sorted(map_edge.items(), key=lambda item: item[1], reverse=True))
+            print(map_sorted)
+
+            for edge in map_sorted.keys():
+
+                if edge in close_list:
+                    continue
+
                 if edge not in self.list_shelf:
                     tentative_g_score = g_score[current] + heuristic(current, edge)
                     # Check turn
@@ -143,13 +156,11 @@ class MapManagement:
         while current_index <= len(path_coord) - 1:
             control_index = current_index
 
-            # Tìm kiếm điểm kiểm soát dựa trên vị trí tiếp theo
             for index in range(current_index + 1, len(path_coord)):
                 if self.is_turn_point(path_coord[current_index], path_coord[index]):
                     control_index = index - 1
                     break
 
-            # Nếu không tìm thấy điểm kiểm soát, lấy điểm cuối cùng
             if control_index == current_index:
                 control_index = len(path_coord) - 1
 
@@ -158,19 +169,16 @@ class MapManagement:
                 "path_coord": [],
                 "is_last": control_index == len(path_coord) - 1
             }
-            # print(f"Current: {current_index}, Control: {control_index}")
             for path_index in range(current_index, control_index + 1):
                 # print(f"Path plan: {path_coord[path_index]}")
                 segment["path_coord"].append(path_coord[path_index])
                 segment["path_id"].append(path_id[path_index])
-            # print(f"Map_management segment: {segment}")
             segments.append(segment)
             current_index = control_index + 1
 
         return segments
 
     def is_turn_point(self, start, end):
-        """Kiểm tra xem hai điểm có tạo ra một bước ngoặt (turning point) không."""
         dx = abs(start[0] - end[0])
         dy = abs(start[1] - end[1])
 
